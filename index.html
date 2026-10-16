@@ -135,6 +135,8 @@
 /* ---------- film ---------- */
 .film{padding-block:clamp(48px,7vw,110px)}
 .film .frame{width:min(940px,100%);margin-inline:auto}
+.film-head{text-align:center;margin:0 0 clamp(22px,3vw,36px)}
+.film-head h2{font-size:clamp(20px,2.2vw,28px);font-weight:500;color:var(--ink);margin:6px 0 0;letter-spacing:.06em}
 .frame{aspect-ratio:16/9;border-radius:4px;background:radial-gradient(60% 70% at 25% 40%,rgba(47,79,224,.22),transparent 70%),radial-gradient(50% 60% at 78% 62%,rgba(255,90,54,.2),transparent 70%),#f1f1ed;display:grid;place-items:center;text-align:center;overflow:hidden;color:var(--sub);font-size:13.5px;line-height:2}
 .frame video{width:100%;height:100%;object-fit:cover;display:block}
 
@@ -256,7 +258,8 @@
 </div></section>
 
 <!-- 02 introduction film -->
-<section class="film" id="film" aria-label="自己紹介動画"><div class="wrap">
+<section class="film" id="film" aria-labelledby="film-title"><div class="wrap">
+  <div class="film-head pop"><span class="en">Introduction film</span><h2 id="film-title">Saki Fujiwara を、40秒で知る。</h2></div>
   <!-- 動画が完成したら data-src に相対パス（例: media/intro.mp4）を入れる -->
   <div class="frame pop" id="filmFrame" data-src="media/intro.mp4" data-poster="img/intro-poster.jpg"><div>紹介動画を読み込めませんでした。<br>時間をおいて再度お試しください。</div></div>
 </div></section>
