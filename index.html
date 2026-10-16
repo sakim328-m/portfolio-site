@@ -397,7 +397,7 @@ const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
 /* challenge data — wording from the portfolio discussion; related work maps to existing cases */
 const CH=[
  {k:'課題発見',en:'Problem finding',q:'もっと事業を成長させるためには…？',h:'まだ言語化されていない課題や価値を見つける',p:'複数の視点から、まだ言語化されていない課題や価値を発見する。依頼された課題をそのまま受け取るのではなく、本当に考えるべき問いを探します。',chips:[],rel:['02'],
-  o:[[18,20,58,0],[30,32,52,0],[24,26,56,0]],blur:9},
+  o:[[10,16,56,0],[34,30,52,0],[20,38,46,0]],blur:0,fade:.62},
  {k:'顧客理解',en:'Customer insight',q:'顧客が選ぶ理由、選ばない理由を、本当に理解できている？',h:'選択の背景について、仮説を立てる',p:'顧客行動・市場・競合を読み解き、選択の背景について仮説を立てる。',chips:[],rel:['01','04'],
   o:[[6,26,46,0],[48,26,46,0],[38,40,18,0]],blur:0},
  {k:'構想の具体化',en:'Rapid prototyping & execution',q:'構想はある。でも、スピード感を持って具体的な形にできない。',h:'構想を、すぐに触れられる形へ',p:'制作の実務経験を土台に、Vibe Design・Vibe Coding・AIプロトタイピングを活用。構想をすぐに触れられる形にし、仮説検証と改善のサイクルを加速します。',chips:['Vibe Design','Vibe Coding','AI Prototyping','UX / UI','Rapid Validation'],rel:['03','02'],
@@ -423,7 +423,7 @@ function fill(c){
   $('vrel').replaceChildren(...c.rel.map(n=>{const a=document.createElement('a');a.href='#case-'+n;a.innerHTML='<span>'+n+'　'+CASES[n]+'</span><span>→</span>';return a;}));
 }
 function shape(c){
-  c.o.forEach((v,j)=>{const o=orbs[j];o.style.left=v[0]+'%';o.style.top=v[1]+'%';o.style.width=v[2]+'%';o.style.height=v[2]+'%';o.style.borderRadius=v[3]?v[3]+'%':'50%';o.style.filter=c.blur?'blur('+c.blur+'px)':'none';});
+  c.o.forEach((v,j)=>{const o=orbs[j];o.style.left=v[0]+'%';o.style.top=v[1]+'%';o.style.width=v[2]+'%';o.style.height=v[2]+'%';o.style.borderRadius=v[3]?v[3]+'%':'50%';o.style.filter=c.blur?'blur('+c.blur+'px)':'none';o.style.opacity=c.fade||1;});
 }
 function set(i,focus){
   if(i===cur)return;cur=i;const c=CH[i];
