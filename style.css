@@ -75,3 +75,17 @@ h1,h2,h3,p{margin-top:0}
   html{scroll-behavior:auto}
   *,*:before,*:after{transition-duration:.01ms!important;animation-duration:.01ms!important;animation-iteration-count:1!important}
 }
+
+/* custom cursor (cursor.js) */
+.has-cursor,.has-cursor *{cursor:none!important}
+.has-cursor input,.has-cursor textarea{cursor:text!important}
+.cur-dot,.cur-ring,.cur-tag{position:fixed;left:0;top:0;pointer-events:none;z-index:9999;opacity:0;transition:opacity .2s}
+.cur-on .cur-dot,.cur-on .cur-ring{opacity:1}
+.cur-dot{width:10px;height:10px;margin:-5px 0 0 -5px;border-radius:50%;background:var(--g-coral);box-shadow:0 0 0 1.5px #fff,0 1px 4px rgba(31,34,48,.25)}
+.cur-ring{width:36px;height:36px;margin:-18px 0 0 -18px}
+.cur-ring:before{content:"";position:absolute;inset:0;border-radius:50%;border:1px solid rgba(31,34,48,.35);transition:transform .3s var(--pop),background .25s,border-color .25s,opacity .2s}
+.cur-ring.is-link:before{transform:scale(1.45);background:rgba(47,79,224,.08);border-color:rgba(47,79,224,.5)}
+.cur-ring.is-media:before{transform:scale(.6);opacity:0}
+.cur-ring.is-press:before{transform:scale(.8)}
+.cur-tag{margin:14px 0 0 14px;white-space:nowrap;font-family:var(--serif);font-style:italic;font-size:15px;line-height:1;color:var(--ink);background:#fff;border-radius:99px;padding:6px 11px 7px;box-shadow:0 4px 14px rgba(31,34,48,.14)}
+.cur-on .cur-tag.is-on{opacity:1}
