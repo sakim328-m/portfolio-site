@@ -110,6 +110,28 @@
 .statement .big em{font-style:normal;color:var(--blue)}
 .statement .tri{font-family:var(--serif);font-style:italic;font-weight:400;font-size:clamp(17px,1.8vw,23px);color:var(--blue);margin:0}
 
+
+/* ---------- generative AI video accordion ---------- */
+.reel{margin:0 0 22px;padding:0}
+.reel>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:24px clamp(20px,2.4vw,32px);font-size:17px;font-weight:500;color:var(--ink)}
+.reel>summary::-webkit-details-marker{display:none}
+.reel>summary .en{margin-bottom:4px}
+.reel-count{display:inline-flex;align-items:center;gap:12px;font-size:13px;color:var(--sub)}
+.reel-count:after{content:"";width:28px;height:28px;border-radius:50%;background:var(--tint) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12'%3E%3Cpath d='M6 1v10M1 6h10' stroke='%232f4fe0' stroke-width='1.4'/%3E%3C/svg%3E") center/12px no-repeat;transition:transform .4s var(--pop)}
+.reel[open] .reel-count:after{transform:rotate(45deg)}
+.reel-lead{margin:0;padding:0 clamp(20px,2.4vw,32px);font-size:12.5px;color:var(--muted)}
+.reel-grid{list-style:none;margin:0;padding:18px clamp(20px,2.4vw,32px) clamp(24px,2.6vw,34px);display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.reel-media{position:relative;aspect-ratio:4/5;border-radius:16px;overflow:hidden;background:#f1f1ed}
+.reel-media video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;background:#f1f1ed}
+.reel-wip{position:absolute;inset:0;display:grid;place-content:center;text-align:center;gap:4px;font-size:13px;color:var(--sub);background:radial-gradient(60% 60% at 30% 35%,rgba(47,79,224,.16),transparent 70%),radial-gradient(55% 55% at 72% 68%,rgba(255,90,54,.15),transparent 70%),#f4f4f1}
+.reel-wip .it{font-size:26px;color:var(--ink)}
+.reel-info{display:flex;flex-direction:column;gap:2px;padding-top:12px;font-size:12.5px;color:var(--sub)}
+.reel-info b{font-size:15px;font-weight:500;color:var(--ink)}
+.reel-time{color:var(--blue);font-weight:600}
+.reel-note{color:var(--muted);font-size:11.5px}
+@media(max-width:900px){.reel-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:560px){.reel-grid{grid-template-columns:1fr}}
+
 /* ---------- work ---------- */
 .work{padding-block:clamp(80px,10vw,140px)}
 .feature{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,56px);align-items:center;padding:clamp(20px,2.4vw,32px);margin-bottom:22px}
@@ -343,6 +365,19 @@
       <details><summary>制作プロセス</summary><dl><div><dt>制作</dt><dd>Higgsfield（Seedance）でキャラクターごとのカットを生成し、カットの構成と編集まで仕上げた。</dd></div><div><dt>表現</dt><dd>フェルトの質感とワイドな画角を保ち、キャラクターがガチャガチャから出てくる瞬間の楽しさを伝える。</dd></div><div><dt>仕様</dt><dd>54秒・4:3。</dd></div></dl></details>
     </div>
   </article>
+
+  <details class="panel reel pop" id="ai-videos">
+    <summary><span><span class="en">More generative AI videos</span>生成AI動画をもっと見る</span><span class="reel-count">6本</span></summary>
+    <p class="reel-lead">企画から書き出しまでの制作時間の目安（1日＝8時間）。</p>
+    <ul class="reel-grid">
+      <li class="reel-card"><div class="reel-media"><video class="autoplay" src="media/kinmokusei.mp4" poster="img/kinmokusei-poster.jpg" muted loop playsinline controls preload="none" aria-label="金木犀"></video></div><div class="reel-info"><b>金木犀</b><span>ショート映像・15秒・縦型</span><span class="reel-time">制作時間 約0.5日</span></div></li>
+      <li class="reel-card"><div class="reel-media"><video class="autoplay" src="media/intro.mp4" poster="img/intro-poster.jpg" muted loop playsinline controls preload="none" aria-label="自己紹介動画"></video></div><div class="reel-info"><b>自己紹介動画</b><span>紹介ムービー・40秒</span><span class="reel-time">制作時間 約0.5日</span></div></li>
+      <li class="reel-card"><div class="reel-media"><video class="autoplay" src="media/gacha.mp4" poster="img/gacha-poster.jpg" muted loop playsinline controls preload="none" aria-label="meet your OFFICE SLACKER"></video></div><div class="reel-info"><b>meet your OFFICE SLACKER</b><span>ショート映像・54秒</span><span class="reel-time">制作時間 約0.5日</span></div></li>
+      <li class="reel-card"><div class="reel-media"><video class="autoplay" src="media/dress.mp4" poster="img/dress-poster.jpg" muted loop playsinline controls preload="none" aria-label="ドレス"></video></div><div class="reel-info"><b>ドレス</b><span>ショート映像・15秒・縦型</span><span class="reel-time">制作時間 約0.3日</span></div></li>
+      <li class="reel-card is-wip"><div class="reel-media"><div class="reel-wip"><span class="it">Coming soon</span>制作中</div></div><div class="reel-info"><b>コスメ</b><span>ショート映像</span><span class="reel-time">制作時間 約0.5日（予定）</span></div></li>
+      <li class="reel-card is-wip"><div class="reel-media"><div class="reel-wip"><span class="it">Coming soon</span>制作中</div></div><div class="reel-info"><b>meet your OFFICE SLACKER vol.2</b><span>ショート映像</span><span class="reel-time">制作時間 約0.1日（予定）</span><span class="reel-note">1本目の制作の型を再利用</span></div></li>
+    </ul>
+  </details>
 
   <div class="cards">
     <article class="panel card case pop" id="case-02">
