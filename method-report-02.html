@@ -1,0 +1,301 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Method Report 02 — 熟練者の判断をAIスキルとして生産する方法 | Saki Fujiwara</title>
+<link rel="stylesheet" href="style.css">
+<style>
+.pf-head{position:sticky;top:0;z-index:40;background:rgba(246,246,243,.86);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.pf-head-in{max-width:1080px;margin:0 auto;padding:0 var(--pad);display:flex;align-items:center;gap:20px;min-height:72px}
+.pf-brand{text-decoration:none;font-family:var(--en);font-weight:600;font-size:18px;color:var(--ink);line-height:1.3}
+.pf-brand small{display:block;font-size:10px;font-weight:500;color:var(--blue);letter-spacing:.06em;margin-top:2px}
+.pf-back{margin-left:auto;text-decoration:none;background:#fff;border-radius:18px;padding:10px 18px;font-size:13px;font-weight:700;color:var(--ink);box-shadow:0 6px 24px rgba(47,48,45,.06);line-height:1.4}
+.pf-back:hover{color:var(--blue)}
+.paper{max-width:820px;margin:0 auto;padding:clamp(28px,5vw,64px) var(--pad) 96px}
+.paper .kicker{font-family:var(--en);font-size:12px;color:var(--coral);letter-spacing:.06em}
+.paper h1{font-size:clamp(24px,3vw,34px);font-weight:500;color:var(--ink);line-height:1.55;margin:10px 0 6px;letter-spacing:.04em}
+.paper .sub{font-family:var(--serif);font-style:italic;font-size:clamp(18px,2vw,22px);color:var(--blue);margin:0 0 22px;letter-spacing:0}
+.meta{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:12px;color:var(--sub);border-top:1px solid var(--hair);border-bottom:1px solid var(--hair);padding:10px 0;margin-bottom:34px}
+.abstract{background:#fff;border-radius:var(--r);padding:26px 30px;margin:0 0 40px;box-shadow:0 18px 50px -36px rgba(31,34,48,.3)}
+.abstract .en{margin-bottom:6px}
+.abstract p{font-size:14.5px;line-height:2;margin:0}
+.kw{margin-top:14px;display:flex;flex-wrap:wrap;gap:6px}
+.kw span{font-size:11.5px;background:var(--tint);color:var(--blue);border-radius:99px;padding:3px 11px}
+.paper h2{font-size:clamp(18px,2vw,22px);font-weight:500;color:var(--ink);margin:46px 0 12px;display:flex;gap:12px;align-items:baseline}
+.paper h2 .n{font-family:var(--en);font-size:13px;color:var(--blue);font-weight:600}
+.paper h3{font-size:15.5px;font-weight:600;color:var(--ink);margin:26px 0 6px}
+.paper p,.paper li{font-size:15px;line-height:2.05}
+.paper ol,.paper ul{padding-left:1.3em;margin:0 0 14px}
+.paper li{margin-bottom:4px}
+.fig{margin:26px 0 30px;background:#fff;border-radius:var(--r);padding:22px 22px 14px}
+.fig svg{width:100%;height:auto;display:block}
+.fig figcaption{font-size:12px;color:var(--sub);margin-top:10px;line-height:1.8}
+.fig figcaption b{color:var(--ink);font-weight:600}
+.fig img{border-radius:14px}
+.tbl{width:100%;border-collapse:collapse;font-size:13.5px;line-height:1.8;margin:8px 0 6px}
+.tbl th,.tbl td{text-align:left;vertical-align:top;padding:10px 12px;border-bottom:1px solid var(--hair)}
+.tbl th{font-weight:600;color:var(--ink);background:var(--bg);font-size:12.5px}
+.tbl td:first-child{white-space:nowrap;color:var(--ink);font-weight:600}
+.tbl td:nth-child(2){white-space:nowrap}
+.note{font-size:12.5px;color:var(--sub);border-left:3px solid var(--coral);padding:4px 0 4px 14px;margin:18px 0}
+.eq{font-family:var(--en);background:var(--bg);border-radius:14px;padding:12px 16px;font-size:14px;color:var(--ink);margin:10px 0 14px;overflow-x:auto;white-space:nowrap}
+.endnote{margin-top:56px;padding-top:18px;border-top:1px solid var(--hair);font-size:12px;color:var(--muted);line-height:1.9}
+.summary{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:0 0 40px}
+.summary div{background:#fff;border-radius:22px;padding:18px 20px}
+.summary .en{margin-bottom:6px}
+.summary b{display:block;font-size:15px;color:var(--ink);font-weight:600;line-height:1.6;margin-bottom:4px}
+.summary p{font-size:13px!important;line-height:1.85!important;margin:0;color:var(--sub)}
+.pt{font-size:14px!important;color:var(--blue);background:var(--tint);border-radius:14px;padding:10px 16px;margin:0 0 16px;line-height:1.8!important}
+.pt:before{content:"Point　";font-family:var(--en);font-weight:600}
+.fig .demo-note{font-size:11px;color:var(--muted)}
+@media (max-width:640px){.summary{grid-template-columns:1fr}}
+@media (max-width:640px){.abstract{padding:20px}.tbl td:first-child,.tbl td:nth-child(2){white-space:normal}}
+</style>
+</head>
+<body>
+<header class="pf-head"><div class="pf-head-in"><a class="pf-brand" href="index.html">Saki Fujiwara<small>Integrated Value Designer</small></a><a class="pf-back" href="index.html#case-03">← ポートフォリオに戻る</a></div></header>
+
+<main class="paper">
+  <span class="kicker">Method Report — Case 02</span>
+  <h1>熟練者の判断を、<br>AIエージェントのスキルとして生産する方法</h1>
+  <p class="sub">A method for producing AI-agent skills that reproduce expert judgment: extraction, structuring, gating and feedback</p>
+  <div class="meta"><span>Saki Fujiwara</span><span>Business Development / Operations Design / AI Workflow Design</span><span>※ 手法の紹介を目的とし、対象事業の固有情報・数値・社内の名称はすべて抽象化しています</span></div>
+
+  <section class="abstract">
+    <span class="en">Abstract</span>
+    <p>業務をAIエージェントに移管する際、手順の記述だけでは品質は再現されない。熟練者の価値は手順ではなく<b>判断</b>にあり、その判断の多くは暗黙知として本人にも言語化されていないためである。本稿は、暗黙の判断を抽出・構造化し、AIエージェントが再現できる「スキル」として継続的に生産・運用する方法を報告する。方法は<b>分解・抽出・構造化・検証・還流</b>の5段階からなり、その中核は、抽出した知識を性質に応じて<b>検査・見本・規則・人の判断</b>の4つに振り分ける設計にある。</p>
+    <div class="kw"><span>暗黙知の形式知化</span><span>判断点の分解</span><span>知識の振り分け</span><span>検査ゲート</span><span>二方向の検証</span><span>フィードバックループ</span><span>Human-in-the-loop</span></div>
+  </section>
+
+  <div class="summary">
+    <div><span class="en">Problem</span><b>手順を渡しても、品質は再現されない</b><p>品質を決めているのは熟練者の「判断」。しかもその多くは言語化されていない。</p></div>
+    <div><span class="en coral">Approach</span><b>判断を掘り出し、4つの置き場所に配置する</b><p>指摘・実例・データから判断を抽出し、検査・見本・規則・人の判断に振り分けて運用で更新し続ける。</p></div>
+    <div><span class="en">Result</span><b>誰が担当しても同じ水準に</b><p>形式の誤りは検査が止め、人は表現の質という本来の判断に集中できるようになった。</p></div>
+  </div>
+
+  <h2><span class="n">1</span>背景と問題設定</h2>
+  <p class="pt">AIの品質が上がらない原因は、手順ではなく「判断」が移されていないことにある。</p>
+  <p>手順書を与えられたAIエージェントの成果物には、共通する品質上の欠陥が現れる。形式は整っているが判断の方向が熟練者と異なる<b>表層的な整合</b>、規則の字面は満たすが意図を外す<b>形式的な遵守</b>、確認作業が人へ押し戻される<b>検証コストの転嫁</b>、そして修正した誤りが別の案件で再発する<b>誤りの再発</b>である。</p>
+  <p>いずれも、品質を決めている判断がスキルに移されていないことに起因する。本稿の問いは、<b>言語化されていない判断を、どうすれば再現可能な形で取り出し、品質を保ったまま運用し続けられるか</b>である。</p>
+
+  <h2><span class="n">2</span>方法の全体像</h2>
+  <p class="pt">スキルを「判断の再現装置」として設計し、5つの段階を循環させて作り続ける。</p>
+  <p>本手法では、スキルを手順書ではなく<b>判断の再現装置</b>として定義する。すなわち、判断の基準・基準の根拠・処理を止める条件を一体で保持するものである。これを、5つの段階を循環させる構造で生産する。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 760 330" role="img" aria-label="分解・抽出・構造化・検証・還流の5段階と、還流から抽出へ戻る循環の図">
+      <defs>
+        <linearGradient id="gb" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f4fe0"/><stop offset="1" stop-color="#7b8cf2"/></linearGradient>
+        <linearGradient id="gc" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a36"/><stop offset="1" stop-color="#ff8f6b"/></linearGradient>
+        <linearGradient id="gm" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#eef1fe"/><stop offset="1" stop-color="#fff0eb"/></linearGradient>
+        <marker id="ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9a9ca3"/></marker>
+        <marker id="arc" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#e0533a"/></marker>
+        <marker id="arb" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#2f4fe0"/></marker>
+      </defs>
+      <g font-family="Yu Gothic, Hiragino Kaku Gothic ProN, sans-serif" text-anchor="middle">
+        <path d="M688 34C688 6 222 6 222 30" fill="none" stroke="#e0533a" stroke-width="2" stroke-dasharray="5 5" marker-end="url(#arc)"/>
+        <rect x="320" y="2" width="270" height="22" rx="11" fill="#fff"/>
+        <text x="455" y="18" fill="#e0533a" font-size="12">運用での指摘を、抽出の段階へ戻し続ける</text>
+        <g><rect x="8" y="40" width="136" height="112" rx="22" fill="url(#gb)"/><text x="76" y="64" fill="#fff" font-size="11" font-family="Avenir Next, sans-serif">01 Decompose</text><text x="76" y="94" fill="#fff" font-size="16" font-weight="600">分解</text><text x="76" y="118" fill="#fff" font-size="11">工程と判断点に</text><text x="76" y="134" fill="#fff" font-size="11">分ける</text></g>
+        <g><rect x="154" y="40" width="136" height="112" rx="22" fill="#eef1fe"/><text x="222" y="64" fill="#2f4fe0" font-size="11" font-family="Avenir Next, sans-serif">02 Extract</text><text x="222" y="94" fill="#1f2230" font-size="16" font-weight="600">抽出</text><text x="222" y="118" fill="#3d404a" font-size="11">指摘・実例・データ</text><text x="222" y="134" fill="#3d404a" font-size="11">＋上位方針の翻訳</text></g>
+        <g><rect x="300" y="40" width="136" height="112" rx="22" fill="#eef1fe"/><text x="368" y="64" fill="#2f4fe0" font-size="11" font-family="Avenir Next, sans-serif">03 Structure</text><text x="368" y="94" fill="#1f2230" font-size="16" font-weight="600">構造化</text><text x="368" y="118" fill="#3d404a" font-size="11">文章／例／検査／人</text><text x="368" y="134" fill="#3d404a" font-size="11">に振り分ける</text></g>
+        <g><rect x="446" y="40" width="136" height="112" rx="22" fill="#eef1fe"/><text x="514" y="64" fill="#2f4fe0" font-size="11" font-family="Avenir Next, sans-serif">04 Validate</text><text x="514" y="94" fill="#1f2230" font-size="16" font-weight="600">検証</text><text x="514" y="118" fill="#3d404a" font-size="11">失敗を捕まえる</text><text x="514" y="134" fill="#3d404a" font-size="11">良いものを通す</text></g>
+        <g><rect x="592" y="40" width="160" height="112" rx="22" fill="url(#gc)"/><text x="672" y="64" fill="#fff" font-size="11" font-family="Avenir Next, sans-serif">05 Feed back</text><text x="672" y="94" fill="#fff" font-size="16" font-weight="600">還流</text><text x="672" y="118" fill="#fff" font-size="11">指摘を記録し</text><text x="672" y="134" fill="#fff" font-size="11">基準・検査へ反映</text></g>
+        <path d="M146 96H150" stroke="#9a9ca3" stroke-width="2" marker-end="url(#ar)"/>
+        <path d="M292 96H296" stroke="#9a9ca3" stroke-width="2" marker-end="url(#ar)"/>
+        <path d="M438 96H442" stroke="#9a9ca3" stroke-width="2" marker-end="url(#ar)"/>
+        <path d="M584 96H588" stroke="#9a9ca3" stroke-width="2" marker-end="url(#ar)"/>
+        <path d="M368 236V158" stroke="#2f4fe0" stroke-width="1.6" marker-end="url(#arb)"/>
+        <text x="374" y="204" fill="#2f4fe0" font-size="11" text-anchor="start">すべてのスキルが参照</text>
+        <path d="M672 158V236" stroke="#e0533a" stroke-width="1.6" marker-end="url(#arc)"/>
+        <text x="666" y="204" fill="#e0533a" font-size="11" text-anchor="end">一か所の修正が全工程に効く</text>
+        <rect x="8" y="240" width="744" height="76" rx="38" fill="url(#gm)" stroke="#e4e4df"/>
+        <text x="380" y="268" fill="#2f4fe0" font-size="11" font-family="Avenir Next, sans-serif">Single source of judgment</text>
+        <text x="380" y="294" fill="#1f2230" font-size="15" font-weight="600">判断基準の正本：基準・理由・見本・検査を一か所で管理する</text>
+      </g>
+    </svg>
+    <figcaption><b>図1</b>　方法の全体像。一度作って終わりにせず、運用での指摘が正本を通じて全スキルに反映され、抽出の段階に戻り続ける構造として設計する。</figcaption>
+  </figure>
+  <p>設計上の前提は二つある。第一に、判断基準は<b>単一の正本</b>で管理し、用途別のスキルはすべてそれを参照する。第二に、運用で生じた誤りを基準と検査に戻す<b>還流の経路</b>を、最初から設計に組み込む。</p>
+
+  <h2><span class="n">3</span>分解 — 業務を判断点に分ける</h2>
+  <p class="pt">まず「どこで何を判断しているか」を地図にする。取り消せない操作は人の承認に残す。</p>
+  <p>業務を工程に分け、各工程の中で熟練者が何かを見て決めている箇所を<b>判断点</b>として特定する。判断点ごとに、入力（一次情報）・判断の内容・根拠・出力・副作用（外部への書き込みや公開など取り消しにくい操作）を定義する。</p>
+  <p>この分解は二つの設計判断の基礎になる。一つはスキルの境界で、<b>副作用の有無で切り分け</b>、取り消しにくい操作を含む工程には人の承認を必須とする。もう一つは入力の正本で、一次情報の優先順位と、それが得られない場合に代替で進めるか停止するかを事前に定める。</p>
+
+  <h2><span class="n">4</span>抽出 — 判断を取り出す</h2>
+  <p class="pt">判断は聞いても出てこない。実際の指摘・実例・データから掘り出す。</p>
+  <p>暗黙の判断は単一の方法では取り出せない。実際の作業とデータから掘り起こす<b>ボトムアップ</b>と、組織の方針から降ろす<b>トップダウン</b>を組み合わせる。</p>
+  <table class="tbl">
+    <thead><tr><th>手法</th><th>取り出すもの</th><th>要点</th></tr></thead>
+    <tbody>
+      <tr><td>指摘の構造化記録</td><td>判断の理由</td><td>熟練者と共同で作業し、成果物への指摘を「事実・理由・次の行動」で記録する。判断は具体物を前にしたときにだけ言語化される。</td></tr>
+      <tr><td>実例コーパス分析</td><td>表現の型と分布</td><td>公開済みの成果物を全数収集し、構文・語彙・長さの分布から型を抽出する。感覚を統計的な基準に置き換える。</td></tr>
+      <tr><td>対比事例と見本</td><td>規則で書けない水準</td><td>採用例と不採用例を対で示し、案件類型ごとに完成形の見本を定める。</td></tr>
+      <tr><td>データによる検証</td><td>経験則の妥当性</td><td>経験則を実データで検証し、成り立たないものは棄却・再定義する。根拠を顧客の声や成果データに接続する。</td></tr>
+      <tr><td>上位方針の翻訳</td><td>組織としての方向性</td><td>ブランドや戦略を、原則 → 要素ごとの指針 → 迷ったときの一つの問い、へと段階的に具体化する。</td></tr>
+    </tbody>
+  </table>
+
+  <h2><span class="n">5</span>構造化 — 知識の置き場所を振り分ける</h2>
+  <p class="pt">すべてを文章で指示しない。止められるものは検査、見せられるものは見本へ。</p>
+  <p>抽出した知識をすべて文章の指示として記述すると、指示が肥大化し、重要な規則が埋もれて守られなくなる。そこで知識を<b>性質に応じて4つの置き場所に振り分ける</b>。機械で判定できるものは検査で止め、例で伝わるものは見本で示し、理由によって方向が決まるものだけを規則として書き、人にしか決められないものは範囲を限定して人に委ねる。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 760 300" role="img" aria-label="知識の性質による4つの置き場所の図">
+      <g font-family="Yu Gothic, Hiragino Kaku Gothic ProN, sans-serif">
+        <rect x="8" y="8" width="366" height="134" rx="22" fill="#eef1fe"/>
+        <text x="30" y="38" fill="#2f4fe0" font-size="11.5" font-family="Avenir Next, sans-serif">Gate</text>
+        <text x="30" y="64" fill="#1f2230" font-size="17" font-weight="600">機械で止める</text>
+        <text x="30" y="90" fill="#3d404a" font-size="12">機械で真偽を判定できる知識</text>
+        <text x="30" y="112" fill="#6c6f78" font-size="11.5">必須項目の空欄・語彙の範囲外・禁止表現・長さ</text>
+        <rect x="386" y="8" width="366" height="134" rx="22" fill="#fff0eb"/>
+        <text x="408" y="38" fill="#e0533a" font-size="11.5" font-family="Avenir Next, sans-serif">Example</text>
+        <text x="408" y="64" fill="#1f2230" font-size="17" font-weight="600">例で見せる</text>
+        <text x="408" y="90" fill="#3d404a" font-size="12">例を見れば伝わる知識</text>
+        <text x="408" y="112" fill="#6c6f78" font-size="11.5">仕上がりの水準・文体・魅力の出し方（見本／好例と悪例）</text>
+        <rect x="8" y="154" width="366" height="134" rx="22" fill="#fff0eb"/>
+        <text x="30" y="184" fill="#e0533a" font-size="11.5" font-family="Avenir Next, sans-serif">Rule + Reason</text>
+        <text x="30" y="210" fill="#1f2230" font-size="17" font-weight="600">文章で頼む</text>
+        <text x="30" y="236" fill="#3d404a" font-size="12">判断が要り、理由で方向が決まる知識</text>
+        <text x="30" y="258" fill="#6c6f78" font-size="11.5">選ぶ順番・優先するもの・構成の考え方</text>
+        <rect x="386" y="154" width="366" height="134" rx="22" fill="#eef1fe"/>
+        <text x="408" y="184" fill="#2f4fe0" font-size="11.5" font-family="Avenir Next, sans-serif">Human</text>
+        <text x="408" y="210" fill="#1f2230" font-size="17" font-weight="600">人に聞く</text>
+        <text x="408" y="236" fill="#3d404a" font-size="12">人にしか決められない知識（範囲と件数を限定）</text>
+        <text x="408" y="258" fill="#6c6f78" font-size="11.5">外部への確認が要る事実・公開してよいかの判断</text>
+      </g>
+    </svg>
+    <figcaption><b>図2</b>　知識の振り分け。「規則は簡潔に、検査は厳密に」を保つために、性質ごとに置き場所を決める。</figcaption>
+  </figure>
+  <p>あわせて、規則と経緯（いつ誰が何を指摘したか）を分離し、処理を止める条件を明文化する。AIから人への確認事項は、人が判断できる範囲に限定し、件数にも上限を設ける。</p>
+
+  <h2><span class="n">6</span>検証 — 二方向で確かめる</h2>
+  <p class="pt">「悪いものを止める」だけでなく「良いものを通す」ことまで確かめる。</p>
+  <p>検査とスキルは二つの方向から検証する。過去に問題となった成果物を確実に<b>検出できるか</b>（再現率）と、基準を満たした成果物を誤って<b>止めないか</b>（誤検知の抑制）である。後者を欠いた検査は運用の妨げとなり、現場で使われなくなる。また、人が品質を判断する確認環境が本番と乖離していれば人の判断も誤るため、確認環境の忠実度も検証の対象とする。</p>
+
+  <h2><span class="n">7</span>還流 — 運用からの学習を設計する</h2>
+  <p class="pt">運用での指摘を正本に戻し、一か所の修正を全スキルに効かせる。</p>
+  <p>運用で受けた指摘は、構造化して記録し、第5章の振り分けに従って置き場所を決め、正本に反映する。正本はすべてのスキルから参照されるため、一か所の修正が全工程に波及する。検査に追加したものは、その事例で二方向の検証を再実行する。</p>
+  <p>還流を続けると記述は増え続けるため、定期的に統合と剪定を行い、<b>規則は簡潔に、検査は厳密に</b>という状態を保つ。これが長期運用の条件である。</p>
+
+  <h2><span class="n">8</span>適用事例：LP制作</h2>
+  <p class="pt">LP制作の判断を、写真・言葉・構成の基準として実装した。</p>
+  <p>本手法を、予約サイトにおける提携先ごとのランディングページ（LP）制作に適用した。国内向け・海外向けの二言語で、多種類の入力情報から原稿・写真・構成を判断する業務であり、品質は少数の制作者に依存していた。</p>
+  <p>工程を分解して公開を伴う工程を分離し、制作者との共同作業・公開済みページの全数分析・ブランド方針の翻訳から判断基準を抽出した。基準は単一の正本に集約し、国内向け・海外向けの全スキルから参照する構成とした。その結果、担当者によらず一定の水準で制作できるようになり、形式的な誤りは検査が捕捉するため、人の確認は表現の質という本来の判断に集中できるようになった。また、本番環境と同等のプレビューを成果物の出力形式として設定したことで、本番環境に触れることなく多くのメンバーがLP制作に携われるようになり、属人化の解消につながった。</p>
+
+  <h2><span class="n">9</span>事例詳細：写真と言葉の判断をどう形にしたか</h2>
+  <p class="pt">写真は「全数評価 → 弱点だけ補正 → 人が最終判断」、言葉は「実例の分布から型をつくる」。どちらも感覚をデータで裏づけた。</p>
+  <h3>9.1 写真評価のパイプライン</h3>
+  <p>写真の選定は、制作者の目利きに最も依存していた工程である。そこで、提供されたすべての写真を取り込み、品質や掲載権利で足切りしたうえで、観点別に採点し、必要な補正をかけてから、候補を選定理由つきで人に提示する流れに分解した。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 760 210" role="img" aria-label="写真評価のパイプライン">
+      <defs><marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto"><path d="M0 0L10 5L0 10z" fill="#9a9ca3"/></marker>
+      <linearGradient id="g3b" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#2f4fe0"/><stop offset="1" stop-color="#7b8cf2"/></linearGradient>
+      <linearGradient id="g3c" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a36"/><stop offset="1" stop-color="#ff8f6b"/></linearGradient></defs>
+      <g font-family="Yu Gothic, Hiragino Kaku Gothic ProN, sans-serif" text-anchor="middle">
+        <rect x="6" y="20" width="136" height="120" rx="20" fill="url(#g3b)"/><text x="74" y="46" fill="#fff" font-size="11" font-family="Avenir Next, sans-serif">01 Collect</text><text x="74" y="74" fill="#fff" font-size="15" font-weight="600">全数取り込み</text><text x="74" y="98" fill="#fff" font-size="11">提供写真・既存写真</text><text x="74" y="114" fill="#fff" font-size="11">を一括で読み込む</text>
+        <rect x="158" y="20" width="136" height="120" rx="20" fill="#eef1fe"/><text x="226" y="46" fill="#2f4fe0" font-size="11" font-family="Avenir Next, sans-serif">02 Screen</text><text x="226" y="74" fill="#1f2230" font-size="15" font-weight="600">足切り</text><text x="226" y="98" fill="#3d404a" font-size="11">ブレ・解像度不足</text><text x="226" y="114" fill="#3d404a" font-size="11">掲載権利の確認</text>
+        <rect x="310" y="20" width="136" height="120" rx="20" fill="#eef1fe"/><text x="378" y="46" fill="#2f4fe0" font-size="11" font-family="Avenir Next, sans-serif">03 Score</text><text x="378" y="74" fill="#1f2230" font-size="15" font-weight="600">観点別に採点</text><text x="378" y="98" fill="#3d404a" font-size="11">ルーブリックで</text><text x="378" y="114" fill="#3d404a" font-size="11">根拠つきで評価</text>
+        <rect x="462" y="20" width="136" height="120" rx="20" fill="#eef1fe"/><text x="530" y="46" fill="#2f4fe0" font-size="11" font-family="Avenir Next, sans-serif">04 Fix</text><text x="530" y="74" fill="#1f2230" font-size="15" font-weight="600">弱点だけ補正</text><text x="530" y="98" fill="#3d404a" font-size="11">傾き・トーン・</text><text x="530" y="114" fill="#3d404a" font-size="11">個人情報の除去</text>
+        <rect x="614" y="20" width="140" height="120" rx="20" fill="url(#g3c)"/><text x="684" y="46" fill="#fff" font-size="11" font-family="Avenir Next, sans-serif">05 Decide</text><text x="684" y="74" fill="#fff" font-size="15" font-weight="600">人が最終判断</text><text x="684" y="98" fill="#fff" font-size="11">KV・ギャラリー案を</text><text x="684" y="114" fill="#fff" font-size="11">選定理由つきで提示</text>
+        <path d="M144 80H154" stroke="#9a9ca3" stroke-width="2" marker-end="url(#a3)"/><path d="M296 80H306" stroke="#9a9ca3" stroke-width="2" marker-end="url(#a3)"/><path d="M448 80H458" stroke="#9a9ca3" stroke-width="2" marker-end="url(#a3)"/><path d="M600 80H610" stroke="#9a9ca3" stroke-width="2" marker-end="url(#a3)"/>
+        <rect x="158" y="158" width="440" height="40" rx="20" fill="#fff" stroke="#e4e4df"/><text x="378" y="183" fill="#3d404a" font-size="12">AIが担う範囲：大量の写真を同じ基準で、速く、根拠つきで下ごしらえする</text>
+      </g>
+    </svg>
+    <figcaption><b>図3</b>　写真評価のパイプライン。AIは全数を同じ基準で評価・補正し、人は提示された候補から最終判断だけを行う。</figcaption>
+  </figure>
+  <h3>9.2 観点別の採点と選定理由</h3>
+  <p>採点の観点は、熟練者の指摘を構造化して導いた。「主題が一目で伝わるか」「人の表情や情景があるか」などの観点ごとに5段階のルーブリックを定義し、1枚ずつ点数と<b>採用・不採用の理由</b>を残す。理由が文章で残るため、人はすべての写真を見直さなくても、短時間で判断の妥当性を確認できる。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 760 230" role="img" aria-label="写真1枚の観点別スコアの例">
+      <defs><linearGradient id="g4" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#2f4fe0"/><stop offset="1" stop-color="#7b8cf2"/></linearGradient></defs>
+      <g font-family="Yu Gothic, Hiragino Kaku Gothic ProN, sans-serif">
+        <text x="20" y="24" fill="#6c6f78" font-size="12">観点別スコア（5段階ルーブリック）</text><text x="20" y="60" fill="#1f2230" font-size="12.5">主題が一目で伝わる</text><rect x="190" y="46" width="300" height="18" rx="9" fill="#eef1fe"/><rect x="190" y="46" width="288" height="18" rx="9" fill="url(#g4)"/><text x="500" y="60" fill="#2f4fe0" font-size="12.5" font-family="Avenir Next, sans-serif" font-weight="600">4.8</text><text x="20" y="94" fill="#1f2230" font-size="12.5">人の表情・情景がある</text><rect x="190" y="80" width="300" height="18" rx="9" fill="#eef1fe"/><rect x="190" y="80" width="276" height="18" rx="9" fill="url(#g4)"/><text x="500" y="94" fill="#2f4fe0" font-size="12.5" font-family="Avenir Next, sans-serif" font-weight="600">4.6</text><text x="20" y="128" fill="#1f2230" font-size="12.5">構図と水平</text><rect x="190" y="114" width="300" height="18" rx="9" fill="#eef1fe"/><rect x="190" y="114" width="264" height="18" rx="9" fill="url(#g4)"/><text x="500" y="128" fill="#2f4fe0" font-size="12.5" font-family="Avenir Next, sans-serif" font-weight="600">4.4</text><text x="20" y="162" fill="#1f2230" font-size="12.5">光と色</text><rect x="190" y="148" width="300" height="18" rx="9" fill="#eef1fe"/><rect x="190" y="148" width="240" height="18" rx="9" fill="url(#g4)"/><text x="500" y="162" fill="#2f4fe0" font-size="12.5" font-family="Avenir Next, sans-serif" font-weight="600">4.0</text><text x="20" y="196" fill="#1f2230" font-size="12.5">ブランドらしさ</text><rect x="190" y="182" width="300" height="18" rx="9" fill="#eef1fe"/><rect x="190" y="182" width="282" height="18" rx="9" fill="url(#g4)"/><text x="500" y="196" fill="#2f4fe0" font-size="12.5" font-family="Avenir Next, sans-serif" font-weight="600">4.7</text>
+        <rect x="560" y="40" width="186" height="170" rx="20" fill="#fff0eb"/>
+        <text x="580" y="68" fill="#e0533a" font-size="11.5" font-family="Avenir Next, sans-serif">Selection note</text>
+        <text x="580" y="96" fill="#1f2230" font-size="14" font-weight="600">KV候補として採用</text>
+        <text x="580" y="122" fill="#3d404a" font-size="11.5">人の表情と地域の風景が</text>
+        <text x="580" y="140" fill="#3d404a" font-size="11.5">1枚で伝わる。余白に</text>
+        <text x="580" y="158" fill="#3d404a" font-size="11.5">コピーを載せられる。</text>
+        <text x="580" y="188" fill="#6c6f78" font-size="11">補正：傾き・トーン</text>
+      </g>
+    </svg>
+    <figcaption><b>図4</b>　写真1枚の評価例（デモ・架空データ）。点数だけでなく、採用・不採用の理由を文章で残すことで、人が短時間で確認できる。</figcaption>
+  </figure>
+  <h3>9.3 経験則の検証と、補正方式の作り直し</h3>
+  <p>制作の現場には「ロケーションごとに理想の写真の色味がある」という経験則があった。これを大量の写真で検証するため、写真から色の特徴（色温度・彩度など）を取り出し、ロケーション別に分布を比較した。結果は、同じロケーション内のばらつきがロケーション間の差より大きく、<b>エリア単位の「正解の色」は定義できない</b>というものだった。そこで、色を一律にそろえる方式をやめ、<b>写真ごとに弱点を診断し、その弱点だけを補正する方式</b>に作り直した。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 760 260" role="img" aria-label="ロケーション別の色の分布は重なっており、理想の色味の仮説は成り立たなかったことを示す概念図">
+      <g font-family="Yu Gothic, Hiragino Kaku Gothic ProN, sans-serif">
+        <rect x="50" y="20" width="290" height="190" fill="#f6f6f3" rx="10"/>
+        <circle cx="212" cy="173" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="214" cy="136" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="165" cy="140" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="308" cy="169" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="303" cy="161" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="258" cy="158" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="113" cy="188" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="265" cy="172" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="112" cy="72" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="168" cy="129" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="251" cy="148" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="266" cy="121" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="252" cy="168" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="184" cy="200" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="269" cy="200" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="187" cy="117" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="206" cy="145" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="274" cy="161" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="199" cy="107" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="194" cy="200" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="173" cy="161" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="260" cy="83" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="233" cy="200" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="89" cy="136" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="223" cy="113" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="265" cy="147" r="4.2" fill="#2f4fe0" fill-opacity=".55"/><circle cx="135" cy="182" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="285" cy="188" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="330" cy="161" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="246" cy="87" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="281" cy="117" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="206" cy="88" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="170" cy="121" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="328" cy="54" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="136" cy="156" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="330" cy="171" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="105" cy="32" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="263" cy="112" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="160" cy="189" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="315" cy="152" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="255" cy="165" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="330" cy="173" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="274" cy="170" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="128" cy="200" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="305" cy="169" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="100" cy="116" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="297" cy="63" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="225" cy="191" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="146" cy="200" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="277" cy="138" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="261" cy="174" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="246" cy="197" r="4.2" fill="#e0533a" fill-opacity=".55"/><circle cx="200" cy="121" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="319" cy="141" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="184" cy="183" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="330" cy="120" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="149" cy="134" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="236" cy="127" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="330" cy="94" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="330" cy="83" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="191" cy="168" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="325" cy="179" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="270" cy="146" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="257" cy="166" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="234" cy="152" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="286" cy="140" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="299" cy="165" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="330" cy="155" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="216" cy="123" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="245" cy="182" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="222" cy="157" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="330" cy="30" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="167" cy="151" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="274" cy="151" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="216" cy="169" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="266" cy="117" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="330" cy="156" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="207" cy="136" r="4.2" fill="#5fcfae" fill-opacity=".55"/><circle cx="238" cy="132" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="63" cy="113" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="325" cy="82" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="249" cy="178" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="314" cy="200" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="135" cy="119" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="230" cy="163" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="330" cy="30" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="330" cy="70" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="302" cy="68" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="266" cy="189" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="244" cy="144" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="310" cy="141" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="248" cy="200" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="327" cy="122" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="330" cy="83" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="318" cy="123" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="263" cy="167" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="270" cy="164" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="147" cy="67" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="297" cy="92" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="182" cy="69" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="330" cy="169" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="330" cy="93" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="254" cy="84" r="4.2" fill="#ffae5a" fill-opacity=".55"/><circle cx="308" cy="200" r="4.2" fill="#ffae5a" fill-opacity=".55"/>
+        <text x="195" y="226" text-anchor="middle" font-size="11" fill="#6c6f78">色温度（寒色 ← → 暖色）</text>
+        <text x="30" y="115" text-anchor="middle" font-size="11" fill="#6c6f78" transform="rotate(-90 30 115)">彩度</text>
+        <circle cx="60" cy="236" r="5" fill="#2f4fe0"/><text x="70" y="240" font-size="11" fill="#3d404a">エリアA</text><circle cx="132" cy="236" r="5" fill="#e0533a"/><text x="142" y="240" font-size="11" fill="#3d404a">エリアB</text><circle cx="204" cy="236" r="5" fill="#5fcfae"/><text x="214" y="240" font-size="11" fill="#3d404a">エリアC</text><circle cx="276" cy="236" r="5" fill="#ffae5a"/><text x="286" y="240" font-size="11" fill="#3d404a">エリアD</text>
+        <text x="372" y="40" font-size="11.5" fill="#e0533a" font-family="Avenir Next, sans-serif">Hypothesis</text>
+        <text x="372" y="62" font-size="13.5" fill="#1f2230" font-weight="600">「ロケーションごとに理想の色味がある」</text>
+        <text x="372" y="92" font-size="11.5" fill="#e0533a" font-family="Avenir Next, sans-serif">Finding</text>
+        <text x="372" y="114" font-size="12.5" fill="#3d404a">同じエリア内のばらつきが、エリア間の差より大きい。</text>
+        <text x="372" y="134" font-size="12.5" fill="#3d404a">→ エリア単位の「正解の色」は定義できない</text>
+        <text x="372" y="166" font-size="11.5" fill="#2f4fe0" font-family="Avenir Next, sans-serif">Redesign</text>
+        <text x="372" y="188" font-size="12.5" fill="#1f2230" font-weight="600">写真ごとに弱点を診断し、そこだけ補正する</text>
+        <text x="372" y="208" font-size="12" fill="#3d404a">暗い → 明るさ ／ 傾き → 水平 ／ くすみ → トーン</text>
+      </g>
+    </svg>
+    <figcaption><b>図5</b>　経験則の検証（概念図・架空データ）。写真の色の特徴をエリア別に比較し、仮説が成り立たないことを確かめたうえで、補正の方式そのものを作り直した。</figcaption>
+  </figure>
+  <h3>9.4 顧客の声から「主役」を決める</h3>
+  <p>海外向けのページでは、何を写真の主役にするかを、制作者の感覚ではなく<b>利用者アンケートの自由記述</b>から決めた。記述の中で言及された要素を分類して比率を求め、言及の多い要素を主役・準主役として撮影企画と選定の優先順位に反映した。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 760 230" role="img" aria-label="利用者アンケートで言及された要素の比率から、写真の主役の優先順位を決めた概念図">
+      <defs><linearGradient id="g6" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ff5a36"/><stop offset="1" stop-color="#ffc2cf"/></linearGradient></defs>
+      <g font-family="Yu Gothic, Hiragino Kaku Gothic ProN, sans-serif"><text x="20" y="22" font-size="12" fill="#6c6f78">利用者アンケートの自由記述で言及された要素（相対値）</text><text x="150" y="55" text-anchor="end" font-size="12.5" fill="#1f2230">自然・風景</text><rect x="162" y="40" width="380" height="22" rx="11" fill="url(#g6)"/><text x="550" y="55" font-size="11.5" fill="#6c6f78">主役に</text><text x="150" y="91" text-anchor="end" font-size="12.5" fill="#1f2230">地域の人との交流</text><rect x="162" y="76" width="311" height="22" rx="11" fill="url(#g6)"/><text x="481" y="91" font-size="11.5" fill="#6c6f78">準主役に</text><text x="150" y="127" text-anchor="end" font-size="12.5" fill="#1f2230">食</text><rect x="162" y="112" width="281" height="22" rx="11" fill="#eef1fe"/><text x="451" y="127" font-size="11.5" fill="#6c6f78"></text><text x="150" y="163" text-anchor="end" font-size="12.5" fill="#1f2230">アクティビティ</text><rect x="162" y="148" width="231" height="22" rx="11" fill="#eef1fe"/><text x="401" y="163" font-size="11.5" fill="#6c6f78"></text><text x="150" y="199" text-anchor="end" font-size="12.5" fill="#1f2230">街並み</text><rect x="162" y="184" width="144" height="22" rx="11" fill="#eef1fe"/><text x="314" y="199" font-size="11.5" fill="#6c6f78"></text></g>
+    </svg>
+    <figcaption><b>図6</b>　海外向けの写真の優先順位（概念図・架空データ）。制作者の感覚ではなく、顧客の声の言及率を根拠に「何を主役に撮るか・選ぶか」を決めた。</figcaption>
+  </figure>
+  <h3>9.5 言葉の型を、実例の分布からつくる</h3>
+  <p>文章についても同じ考え方をとった。公開中のページの文を全数集め、字数・構文・語彙の分布を分析して、よく読まれる文に共通する型を抽出した。長さは分布の中央値を目安とし、外れ値のときだけ検査で警告する。「ちょうどいい長さ」という感覚が、説明できる基準になった。</p>
+  <figure class="fig">
+    <svg viewBox="0 0 760 250" role="img" aria-label="公開済みの短文の字数分布と、中央値・上位外れ値の警告ラインの概念図">
+      <g font-family="Yu Gothic, Hiragino Kaku Gothic ProN, sans-serif">
+        <line x1="60" y1="200" x2="490" y2="200" stroke="#e4e4df"/><rect x="70" y="195" width="28" height="5" rx="4" fill="#c9d2fb"/><rect x="104" y="184" width="28" height="16" rx="4" fill="#c9d2fb"/><rect x="138" y="164" width="28" height="36" rx="4" fill="#c9d2fb"/><rect x="172" y="127" width="28" height="73" rx="4" fill="#c9d2fb"/><rect x="206" y="86" width="28" height="114" rx="4" fill="#c9d2fb"/><rect x="240" y="60" width="28" height="140" rx="4" fill="#c9d2fb"/><rect x="274" y="75" width="28" height="125" rx="4" fill="#c9d2fb"/><rect x="308" y="117" width="28" height="83" rx="4" fill="#c9d2fb"/><rect x="342" y="153" width="28" height="47" rx="4" fill="#c9d2fb"/><rect x="376" y="174" width="28" height="26" rx="4" fill="#c9d2fb"/><rect x="410" y="184" width="28" height="16" rx="4" fill="#ffd2c6"/><rect x="444" y="190" width="28" height="10" rx="4" fill="#ffd2c6"/>
+        <line x1="257" y1="50" x2="257" y2="205" stroke="#2f4fe0" stroke-width="2" stroke-dasharray="4 4"/><text x="257" y="42" text-anchor="middle" font-size="11.5" fill="#2f4fe0">中央値＝目安</text>
+        <line x1="408" y1="80" x2="408" y2="205" stroke="#e0533a" stroke-width="2" stroke-dasharray="4 4"/><text x="408" y="72" text-anchor="middle" font-size="11.5" fill="#e0533a">上位の外れ値＝警告</text>
+        <text x="275" y="228" text-anchor="middle" font-size="11" fill="#6c6f78">一文の字数（短 ← → 長）</text>
+        <text x="520" y="60" font-size="11.5" fill="#2f4fe0" font-family="Avenir Next, sans-serif">How</text>
+        <text x="520" y="82" font-size="12.5" fill="#1f2230" font-weight="600">公開中の文を全数集めて分析</text>
+        <text x="520" y="104" font-size="12" fill="#3d404a">字数・構文・語彙の分布を求め、</text>
+        <text x="520" y="122" font-size="12" fill="#3d404a">よく読まれる文に共通する型を抽出</text>
+        <text x="520" y="156" font-size="11.5" fill="#e0533a" font-family="Avenir Next, sans-serif">Rule</text>
+        <text x="520" y="178" font-size="12" fill="#3d404a">長さは中央値を目安にし、</text>
+        <text x="520" y="196" font-size="12" fill="#3d404a">外れ値のときだけ検査で警告する</text>
+      </g>
+    </svg>
+    <figcaption><b>図7</b>　言葉の型の抽出（概念図・架空データ）。「ちょうどいい長さ」という感覚を、実例の分布にもとづく基準と検査に置き換えた。</figcaption>
+  </figure>
+
+  <h3>9.6 発展：画像のベクトル化による、より精緻な分析</h3>
+  <p>本事例の分析は、色などの限られた特徴量にもとづくものだった。予算と体制が確保できる場合は、画像を<b>埋め込みモデルで数値ベクトルに変換し、ベクトルデータベースに蓄積する</b>ことで、分析の解像度を大きく上げられる。</p>
+  <ul>
+    <li><b>類似検索</b>：成果の高い写真に「似ている」写真を、大量のストックから瞬時に探し出せる。</li>
+    <li><b>クラスタリング</b>：構図・被写体・雰囲気の近い写真を自動でグルーピングし、ラベルづけなしで傾向を把握できる。</li>
+    <li><b>成果データとの接続</b>：ページの閲覧・申込などの成果と写真のベクトルを結びつけ、「どんな写真が成果に効くか」を定量的に検証できる。</li>
+  </ul>
+  <p class="note">経験則の検証から一歩進み、写真の選定基準そのものをデータで継続的に更新できる状態を目指せる。導入には、画像の権利管理と、成果データを取得・紐づける基盤の整備が前提となる。</p>
+
+  <h2><span class="n">10</span>限界と今後の課題</h2>
+  <ul>
+    <li><b>検査の射程</b>：機械で判定できるのは形式までであり、魅力やブランドらしさの評価は人に残る。</li>
+    <li><b>過去事例への依存</b>：実例から抽出した型は既存の表現の範囲にとどまり、革新には人の意図的な逸脱が必要である。</li>
+    <li><b>熟練者の関与</b>：立ち上げ期には、熟練者が成果物を評価する時間の確保が前提となる。</li>
+    <li><b>一次情報の品質</b>：入力となる情報の正本が整っていなければ、スキルは停止して確認を求めるしかない。</li>
+  </ul>
+
+  <h2><span class="n">11</span>結語</h2>
+  <p>熟練者の判断をAIに移す作業は、優れた指示文を書くことではなく、<b>判断を抽出し、性質に応じて配置し、検証し、運用から学び続けるサイクルを組織に実装すること</b>である。判断が品質を決める業務であれば、領域を問わず同じ方法でスキルを生産できる。</p>
+
+  <p class="endnote">本レポートは手法の紹介を目的としています。対象事業・サイト・社内の名称、ブランドガイドラインの原文、具体的な字数・件数・比率などの値、および運用上の固有情報は、守秘のためすべて抽象化または省略しています。関連：<a href="method-report.html">Method Report — Case 01</a></p>
+</main>
+</body>
+</html>
